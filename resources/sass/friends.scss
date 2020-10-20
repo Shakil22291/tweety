@@ -1,0 +1,9 @@
+.friends {
+    background-color: #f5f8fa;
+    .friends__link {
+        transition: 0.1s ease-in-out;
+        &:hover {
+            background-color: #edf0f2;
+        }
+    }
+}

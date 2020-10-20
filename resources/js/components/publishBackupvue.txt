@@ -1,0 +1,124 @@
+<template>
+    <form
+        class="bg-light border-primary border rounded-lg p-4 publish-panel mb-4"
+        @submit.prevent="upload"
+        @keydown="form.errors.clear()"
+    >
+        <div class="d-flex align-items-end mb-2">
+            <img
+                width="40"
+                height="40"
+                src="/images/default-avatar.jpeg"
+                alt=""
+                class="rounded-circle mr-2"
+            />
+            <div class="flex-grow-1">
+                <textarea
+                    placeholder="Write your tweet here !"
+                    name="body"
+                    v-model="form.body"
+                    class="w-100 publish-panel__input border-bottom border-secondary"
+                ></textarea>
+                <div
+                    class="form-text text-danger"
+                    v-if="form.errors.has('body')"
+                    v-text="form.errors.get('body')"
+                ></div>
+            </div>
+        </div>
+        <div
+            v-if="form.thumbnail"
+            class="publish-panel__preview-image rounded position-relative"
+        >
+            <button
+                class="close-preview-image position-absolute bg-dark text-light rounded-circle"
+                @click="removeImage"
+            >
+                <i class="fas fa-times"></i>
+            </button>
+            <img :src="form.thumbnail" alt="" class="img-fluid" />
+        </div>
+        <hr />
+        <div class="d-flex justify-content-between">
+            <div class="publish-panel__options" title="upload tweet thumbnail">
+                <div class="publish-panel__image">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="publish-panel__file-input overflow-hidden">
+                    <input
+                        id="file"
+                        type="file"
+                        name="thumbnail"
+                        @change="getImage"
+                    />
+                </div>
+            </div>
+            <button
+                :disabled="isLoading || form.errors.any()"
+                type="submit"
+                class="btn btn-primary"
+            >
+                <span v-if="isLoading">
+                    <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <span>Loading...</span>
+                </span>
+                <span v-else>Publish</span>
+            </button>
+        </div>
+    </form>
+</template>
+
+<script>
+import Form from "../core/Form";
+
+export default {
+    data() {
+        return {
+            isLoading: false,
+            form: new Form({
+                body: "",
+                thumbnail: null
+            })
+        };
+    },
+    methods: {
+        getImage(e) {
+            // First shoW the preview
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = e => {
+                this.form.thumbnail = e.target.result;
+            };
+
+            // lets store the thumbnail
+            this.thumbnail = file;
+        },
+
+        removeImage() {
+            this.form.thumbnail = null;
+        },
+
+        upload() {
+            this.isLoading = true;
+            // first upload the content
+            this.form
+                .post("/tweets")
+                .then(tweet => {
+                    this.$emit("published", tweet);
+                    this.form.reset();
+                    this.isLoading = false;
+                    alert("published");
+                })
+                .catch(error => {
+                    this.isLoading = false;
+                    alert("Error occured");
+                });
+        }
+    }
+};
+</script>

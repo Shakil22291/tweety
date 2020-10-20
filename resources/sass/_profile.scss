@@ -1,0 +1,53 @@
+.profile-header {
+    .profile-header__banner {
+        .profile-header__banner-img {
+            height: 250px !important;
+            width: 100%;
+            object-fit: cover;
+        }
+        .profile-header__profile-img {
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            overflow: hidden;
+            border-radius: 50%;
+
+            .profile-header__profile-icon {
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                border-radius: 50%;
+                overflow: hidden;
+                justify-content: center;
+                align-items: center;
+                background: #231b1bcf;
+                opacity: 0;
+                transition: 0.2s;
+                cursor: pointer;
+                &:hover {
+                    opacity: 1;
+                }
+
+                i {
+                    pointer-events: none;
+                    color: $primary;
+                    font-size: 2rem;
+                }
+                input {
+                    appearance: none;
+                    opacity: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+    .profile-header__username {
+        max-width: 200px;
+    }
+}
