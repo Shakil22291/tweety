@@ -15,8 +15,26 @@
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+    </style>j
 </head>
 <body>
-    @yield('content')
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="col-md-6 my-md-auto pt-3 pt-md-0 offset-md-3">
+                <a href="/" class="mb-3 d-block">
+                    <img 
+                        src="/images/logo.svg" 
+                        alt="Tweety"
+                        width="150"
+                    >
+                </a>
+                @yield('content')
+            </div>
+        </div>
+    </div>
 </body>
 </html>

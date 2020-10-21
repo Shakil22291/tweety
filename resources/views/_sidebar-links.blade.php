@@ -13,7 +13,7 @@
             </li>
             <li>
                 <a 
-     k               href="/explore" 
+                    href="/explore" 
                     class=" {{ Request::is('explore') ? 'active' : '' }} sidebar-link d-inline-block py-2 px-3 text-dark"
                 >
                     <span class="mr-1"><i class="fas fa-hashtag"></i></span>
@@ -54,10 +54,13 @@
                 </a>
             </li>
             <li>
-                <a href="/tweets" class="sidebar-link d-inline-block py-2 px-3 text-dark">
-                    <span class="mr-1"><i class="far fa-comment-dots"></i></span>
-                    <span>More</span>
-                </a>
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button type="submit" class="sidebar-link d-inline-block py-2 px-3 bg-transparent text-dark border-0">
+                        <span class="mr-1"><i class="fas fa-sign-out-alt"></i></span>
+                        <span>Logout</span>
+                    </button>
+                </form>
             </li>
         </ul>
     </div>
