@@ -1,12 +1,12 @@
 $(document).ready(function() {
     $(".burger").click(function() {
-        $(".sidebar-wrapper").fadeIn();
+        $(".sidebar-wrapper").addClass("active");
         $(".sidebar").addClass("active");
     });
 
     $(window).click(function(event) {
         if (event.target.classList.contains("sidebar-wrapper")) {
-            $(".sidebar-wrapper").fadeOut();
+            $(".sidebar-wrapper").removeClass("active");
             $(".sidebar").removeClass("active");
         }
     });
