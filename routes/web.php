@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/tweets', [TweetController::class, 'index']);
     Route::post('/tweets', [TweetController::class, 'store']);
+    Route::delete('/tweets/{tweet}', [TweetController::class, 'destroy']);
     Route::post('/tweets/{tweet}/thumbnail', [TweetController::class, 'uploadThumbnail']);
     Route::get('/explore', [ExploreController::class, 'index']);
 
